@@ -1,20 +1,16 @@
-package com.example.unstructureddatabasecomparator.model;
+package com.example.unstructureddatabasecomparator.model.postgresql;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class MovieKeywords{
+
     public String id;
     public List<Keyword> keywords;
-
-    public MovieKeywords() {
-        this.keywords = new ArrayList<>();
-    }
-
-    public MovieKeywords(String id, List<Keyword> keywords) {
-        this.id = id;
-        this.keywords = keywords;
-    }
 
     public static class Keyword {
         public String id;

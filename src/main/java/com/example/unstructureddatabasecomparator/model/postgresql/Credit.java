@@ -1,23 +1,18 @@
-package com.example.unstructureddatabasecomparator.model;
+package com.example.unstructureddatabasecomparator.model.postgresql;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Credit {
+
     public String id;
     public List<Cast> castList;
     public List<Crew> crewList;
-
-    public Credit() {
-        this.castList = new ArrayList<>();
-        this.crewList = new ArrayList<>();
-    }
-
-    public Credit(String id, List<Cast> castList, List<Crew> crewList) {
-        this.id = id;
-        this.castList = castList;
-        this.crewList = crewList;
-    }
 
     public static class Cast {
         public String cast_id;
