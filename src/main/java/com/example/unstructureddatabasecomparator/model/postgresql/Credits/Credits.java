@@ -1,4 +1,4 @@
-package com.example.unstructureddatabasecomparator.model.postgresql.MovieKeywords;
+package com.example.unstructureddatabasecomparator.model.postgresql.Credits;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,10 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-public class MovieKeywords{
+public class Credits {
     @Id
     public String id;
 
     @OneToMany(fetch = FetchType.EAGER)
-    public List<Keyword> keywords;
+    public List<Cast> castList;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    public List<Crew> crewList;
 }
