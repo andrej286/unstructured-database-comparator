@@ -1,4 +1,4 @@
-package com.example.unstructureddatabasecomparator.model.postgresql.MovieMetaData;
+package com.example.unstructureddatabasecomparator.model.postgresql.MovieKeywords;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-public class Genre {
-
-  @Id
-  public int Id;
-  public String name;
+public class Keyword {
+    @Id
+    public String id;
+    public String names;
 }
