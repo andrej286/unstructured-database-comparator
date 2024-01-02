@@ -1,13 +1,13 @@
 package com.example.unstructureddatabasecomparator.util;
 
-import com.example.unstructureddatabasecomparator.model.postgresql.Credits.Credits;
-import com.example.unstructureddatabasecomparator.model.postgresql.Credits.Crew;
-import com.example.unstructureddatabasecomparator.model.postgresql.Credits.Cast;
-import com.example.unstructureddatabasecomparator.model.postgresql.Link;
-import com.example.unstructureddatabasecomparator.model.postgresql.MovieKeywords.Keyword;
-import com.example.unstructureddatabasecomparator.model.postgresql.MovieKeywords.MovieKeywords;
-import com.example.unstructureddatabasecomparator.model.postgresql.MovieMetaData.*;
-import com.example.unstructureddatabasecomparator.model.postgresql.Rating;
+import com.example.unstructureddatabasecomparator.model.neo4j.Credits.Cast;
+import com.example.unstructureddatabasecomparator.model.neo4j.Credits.Credits;
+import com.example.unstructureddatabasecomparator.model.neo4j.Credits.Crew;
+import com.example.unstructureddatabasecomparator.model.neo4j.Link;
+import com.example.unstructureddatabasecomparator.model.neo4j.MovieKeywords.Keyword;
+import com.example.unstructureddatabasecomparator.model.neo4j.MovieKeywords.MovieKeywords;
+import com.example.unstructureddatabasecomparator.model.neo4j.MovieMetaData.*;
+import com.example.unstructureddatabasecomparator.model.neo4j.Rating;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import org.springframework.core.io.ClassPathResource;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -27,7 +28,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CSVReaderPostgres {
+public class CSVReaderNeo4J {
     public static ArrayList<Rating> loadRatings() {
         String csvFile = getFilePath("ratings.csv");
         String line;
@@ -165,7 +166,7 @@ public class CSVReaderPostgres {
                     List<SpokenLanguages> spokenLanguagesObject = objectMapper.readValue(spokenLanguages.replace('\'', '"'), new TypeReference<>() {});
 
                     MovieMetadata movieMetadataObject = new MovieMetadata();
-                    movieMetadataObject.setId(Integer.parseInt(id));
+                    movieMetadataObject.setId(id);
                     movieMetadataObject.setAdult(adult);
                     movieMetadataObject.setBudget(Integer.parseInt(budget));
                     movieMetadataObject.setGenres(genresObject);

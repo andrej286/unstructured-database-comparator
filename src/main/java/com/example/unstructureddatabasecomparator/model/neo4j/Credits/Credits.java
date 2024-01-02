@@ -15,11 +15,11 @@ import java.util.List;
 @Node("Credits")
 public class Credits {
   @Id
-  private String id;
+  public String id;
 
   @Relationship(type = "HAS_CAST", direction = Relationship.Direction.OUTGOING)
-  private List<Cast> castList;
+  public List<Cast> castList;
 
   @Relationship(type = "HAS_CREW", direction = Relationship.Direction.OUTGOING)
-  private List<Crew> crewList;
+  public List<Crew> crewList;
 }
