@@ -9,12 +9,12 @@ import org.springframework.data.neo4j.core.schema.Node;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Node("Rating")
-public class Rating {
+@Node("Link")
+public class Link {
 
   @Id
-  public String userId;
+  public Long id;
   public String movieId;
-  public String rating;
-  public String timestamp;
+  public String imdbId;
+  public String tmdbId;
 }
