@@ -1,8 +1,4 @@
-package com.example.unstructureddatabasecomparator.service;
-
-import com.example.unstructureddatabasecomparator.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+package com.example.unstructureddatabasecomparator.util;
 
 import java.io.*;
 import java.net.URI;
@@ -15,18 +11,24 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 //@Service
-public class KaggleService {
+public class Kaggle {
     public static void downloadDataset() {
-        try {
-            String datasetUrl = "https://www.kaggle.com/api/v1/datasets/download/rounakbanik/the-movies-dataset";
-            KaggleDatasetDownloader.downloadDataset(datasetUrl); // Downloads .zip file to the root of the project
-            UnzipUtility.unzip("result.zip", "dataset"); // Extracts the .zip file to a new directory called dataset, also in the root folder
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        FilenameFilter csvFilter = (dir, name) -> name.toLowerCase().endsWith(".csv");
+        File folder = new File("dataset"); // Replace with your folder path
+        File[] files = folder.listFiles(csvFilter);
 
+        if (files == null || files.length < 7) {
+            System.out.println("Downloading and extracting dataset...");
+            try {
+                String datasetUrl = "https://www.kaggle.com/api/v1/datasets/download/rounakbanik/the-movies-dataset";
+                KaggleDatasetDownloader.downloadDataset(datasetUrl); // Downloads .zip file to the root of the project
+                UnzipUtility.unzip("result.zip", "dataset"); // Extracts the .zip file to a new directory called dataset, also in the root folder
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else System.out.println("Files already downloaded. Skipping...");
     }
 }
 
