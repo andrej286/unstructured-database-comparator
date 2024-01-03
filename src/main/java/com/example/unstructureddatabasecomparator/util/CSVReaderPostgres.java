@@ -28,15 +28,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CSVReaderPostgres {
-    public static ArrayList<Rating> loadRatings() {
+    public static ArrayList<Rating> loadRatings(int maxRows) {
         String csvFile = getFilePath("ratings.csv");
         String line;
         ArrayList<Rating> ratings = new ArrayList<>();
+        int counter = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
+                counter++;
+                if(counter >= maxRows) break;
+
                 String[] data = line.split(",");
 
                 String userId = data[0];
@@ -59,15 +63,19 @@ public class CSVReaderPostgres {
         return ratings;
     }
 
-    public static ArrayList<Link> loadLinks() {
+    public static ArrayList<Link> loadLinks(int maxRows) {
         String csvFile = getFilePath("links.csv");
         String line;
         ArrayList<Link> links = new ArrayList<>();
+        int counter = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
+                counter++;
+                if(counter >= maxRows) break;
+
                 String[] data = line.split(",");
 
                 String movieId = data[0];
@@ -82,21 +90,26 @@ public class CSVReaderPostgres {
                 links.add(link);
             }
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println(e);
         }
 
         return links;
     }
 
-    public static ArrayList<MovieKeywords> loadKeywords() {
+    public static ArrayList<MovieKeywords> loadKeywords(int maxRows) {
         String csvFile = getFilePath("keywords.csv");
         ArrayList<MovieKeywords> movieKeywords = new ArrayList<>();
+        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
+                    counter++;
+                    if(counter >= maxRows) break;
+
                     String id = record[0];
                     String keywords = record[1];
 
@@ -124,14 +137,18 @@ public class CSVReaderPostgres {
         return movieKeywords;
     }
 
-    public static ArrayList<MovieMetadata> loadMovies() {
+    public static ArrayList<MovieMetadata> loadMovies(int maxRows) {
         String csvFile = getFilePath("movies_metadata.csv");
         ArrayList<MovieMetadata> movieMetadata = new ArrayList<>();
+        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
                 try {
+                    counter++;
+                    if(counter >= maxRows) break;
+
                     String adult = record[0];
                     String belongsToCollection = record[1];
                     String budget = record[2];
@@ -206,15 +223,18 @@ public class CSVReaderPostgres {
         return movieMetadata;
     }
 
-    public static ArrayList<Credits> loadCredits() {
+    public static ArrayList<Credits> loadCredits(int maxRows) {
         String csvFile = getFilePath("credits.csv");
         ArrayList<Credits> credits = new ArrayList<>();
+        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
+                    counter++;
+                    if(counter >= maxRows) break;
 
                     String cast = record[0];
                     String crew = record[1];

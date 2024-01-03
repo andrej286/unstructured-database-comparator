@@ -42,6 +42,14 @@ public class HomeController {
     return "home";
   }
 
+  @GetMapping("/loadDataset")
+  public String loadDataset(Model model) {
+
+    postgresService.loadDataset();
+
+    return "home";
+  }
+
   @GetMapping("/executeQueries")
   public String executeQueries(@RequestParam(name = "row") int row, @ModelAttribute("data") List<List<Object>> data) {
 
