@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 public class CSVReaderPostgres {
     public static ArrayList<Rating> loadRatings(int maxRows) {
-        String csvFile = getFilePath("ratings.csv");
+        String csvFile = getFilePath("ratings_small.csv");
         String line;
         ArrayList<Rating> ratings = new ArrayList<>();
         int counter = 0;
@@ -39,7 +39,6 @@ public class CSVReaderPostgres {
 
             while ((line = br.readLine()) != null) {
                 counter++;
-                if(counter >= maxRows) break;
 
                 String[] data = line.split(",");
 
@@ -74,13 +73,13 @@ public class CSVReaderPostgres {
 
             while ((line = br.readLine()) != null) {
                 counter++;
-                if(counter >= maxRows) break;
-
                 String[] data = line.split(",");
 
                 String movieId = data[0];
                 String imdbId = data[1];
-                String tmdbId = data[2];
+                String tmdbId = null;
+                if(data.length == 3)
+                    tmdbId = data[2];
 
                 Link link = new Link();
                 link.movieId = movieId;
