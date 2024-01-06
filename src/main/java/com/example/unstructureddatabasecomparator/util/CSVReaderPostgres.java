@@ -62,17 +62,15 @@ public class CSVReaderPostgres {
         return ratings;
     }
 
-    public static ArrayList<Link> loadLinks(int maxRows) {
+    public static ArrayList<Link> loadLinks() {
         String csvFile = getFilePath("links.csv");
         String line;
         ArrayList<Link> links = new ArrayList<>();
-        int counter = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
-                counter++;
                 String[] data = line.split(",");
 
                 String movieId = data[0];
@@ -96,18 +94,15 @@ public class CSVReaderPostgres {
         return links;
     }
 
-    public static ArrayList<MovieKeywords> loadKeywords(int maxRows) {
+    public static ArrayList<MovieKeywords> loadKeywords() {
         String csvFile = getFilePath("keywords.csv");
         ArrayList<MovieKeywords> movieKeywords = new ArrayList<>();
-        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
-                    counter++;
-                    if(counter >= maxRows) break;
 
                     String id = record[0];
                     String keywords = record[1];
@@ -117,8 +112,8 @@ public class CSVReaderPostgres {
                     List<Keyword> allKeywords = objectMapper.readValue(convertSingleQuotes(keywords), new TypeReference<>() {
                     });
                     MovieKeywords movieKeywordsObject = new MovieKeywords();
-                    movieKeywordsObject.setId(id);
-                    movieKeywordsObject.setKeywords(allKeywords);
+                    movieKeywordsObject.id = id;
+                    movieKeywordsObject.keywords = allKeywords;
 
                     movieKeywords.add(movieKeywordsObject);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -222,19 +217,15 @@ public class CSVReaderPostgres {
         return movieMetadata;
     }
 
-    public static ArrayList<Credits> loadCredits(int maxRows) {
+    public static ArrayList<Credits> loadCredits() {
         String csvFile = getFilePath("credits.csv");
         ArrayList<Credits> credits = new ArrayList<>();
-        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
-                    counter++;
-                    if(counter >= maxRows) break;
-
                     String cast = record[0];
                     String crew = record[1];
                     String id = record[2];

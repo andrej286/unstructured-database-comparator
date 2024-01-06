@@ -23,26 +23,24 @@ public class PostgresService {
   private MovieMetadataPostgresRepository movieMetadataPostgresRepository;
   private CreditsPostgresRepository creditsPostgresRepository;
 
-  private static int MAX_ROWS = 10000;
+  private static int MAX_ROWS = 1000;
 
   public void loadDataset() {
 
-    Kaggle.downloadDataset();
+    ArrayList<MovieMetadata> movieMetadata = CSVReaderPostgres.loadMovies(MAX_ROWS);
+    movieMetadataPostgresRepository.saveAll(movieMetadata);
+  }
 
-    ArrayList<Rating> postgresRatings = CSVReaderPostgres.loadRatings(MAX_ROWS);
-    ratingPostgresRepository.saveAll(postgresRatings);
-
-    ArrayList<Link> postgresLinks = CSVReaderPostgres.loadLinks(MAX_ROWS);
-    linkPostgresRepository.saveAll(postgresLinks);
-
-    ArrayList<MovieKeywords> postgresKeywords = CSVReaderPostgres.loadKeywords(MAX_ROWS);
-    movieKeywordsPostgresRepository.saveAll(postgresKeywords);
-
-    ArrayList<MovieMetadata> postgresMovieMetadata = CSVReaderPostgres.loadMovies(MAX_ROWS);
-    movieMetadataPostgresRepository.saveAll(postgresMovieMetadata);
-
-    ArrayList<Credits> postgresCredits = CSVReaderPostgres.loadCredits(MAX_ROWS);
+  // NOTE: ratings and link we import into the database manually
+  private void loadCredits() {
+    // NOTE: Most of these fail, but the array stills returns some and we save these
+    ArrayList<Credits> postgresCredits = CSVReaderPostgres.loadCredits();
     creditsPostgresRepository.saveAll(postgresCredits);
+  }
+
+  private void loadMovieKeywords() {
+    ArrayList<MovieKeywords> movieKeywords = CSVReaderPostgres.loadKeywords();
+    movieKeywordsPostgresRepository.saveAll(movieKeywords);
   }
 
   public Double executeFistQuery() {
