@@ -23,17 +23,15 @@ public class PostgresService {
   private MovieMetadataPostgresRepository movieMetadataPostgresRepository;
   private CreditsPostgresRepository creditsPostgresRepository;
 
-  private static int MAX_ROWS = 1000;
-
   public void loadDataset() {
 
-    ArrayList<MovieMetadata> movieMetadata = CSVReaderPostgres.loadMovies(MAX_ROWS);
+    ArrayList<MovieMetadata> movieMetadata = CSVReaderPostgres.loadMovies();
     movieMetadataPostgresRepository.saveAll(movieMetadata);
   }
 
   // NOTE: ratings and link we import into the database manually
   private void loadCredits() {
-    // NOTE: Most of these fail, but the array stills returns some and we save these
+    // NOTE: Most of these fail, but the array still returns some and we save these
     ArrayList<Credits> postgresCredits = CSVReaderPostgres.loadCredits();
     creditsPostgresRepository.saveAll(postgresCredits);
   }
