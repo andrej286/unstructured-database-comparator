@@ -7,7 +7,6 @@ import com.example.unstructureddatabasecomparator.model.postgresql.MovieMetaData
 import com.example.unstructureddatabasecomparator.model.postgresql.Rating;
 import com.example.unstructureddatabasecomparator.repository.postgresql.*;
 import com.example.unstructureddatabasecomparator.util.CSVReaderPostgres;
-import com.example.unstructureddatabasecomparator.util.Kaggle;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +24,25 @@ public class PostgresService {
 
   public void loadDataset() {
 
+    ArrayList<Link> links = CSVReaderPostgres.loadLinks();
+    linkPostgresRepository.saveAll(links);
+    links.clear();
+
+    ArrayList<Rating> ratings = CSVReaderPostgres.loadRatings();
+    ratingPostgresRepository.saveAll(ratings);
+    ratings.clear();
+
+    ArrayList<Credits> credits = CSVReaderPostgres.loadCredits();
+    creditsPostgresRepository.saveAll(credits);
+    credits.clear();
+
     ArrayList<MovieMetadata> movieMetadata = CSVReaderPostgres.loadMovies();
     movieMetadataPostgresRepository.saveAll(movieMetadata);
-  }
+    movieMetadata.clear();
 
-  // NOTE: ratings and link we import into the database manually
-  private void loadCredits() {
-    // NOTE: Most of these fail, but the array still returns some and we save these
-    ArrayList<Credits> postgresCredits = CSVReaderPostgres.loadCredits();
-    creditsPostgresRepository.saveAll(postgresCredits);
-  }
-
-  private void loadMovieKeywords() {
     ArrayList<MovieKeywords> movieKeywords = CSVReaderPostgres.loadKeywords();
     movieKeywordsPostgresRepository.saveAll(movieKeywords);
+    movieKeywords.clear();
   }
 
   public Double executeFistQuery() {

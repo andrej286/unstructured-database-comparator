@@ -63,7 +63,7 @@ public class CSVReaderPostgres {
     }
 
     public static ArrayList<Link> loadLinks() {
-        String csvFile = getFilePath("links.csv");
+        String csvFile = getFilePath("links_small.csv");
         String line;
         ArrayList<Link> links = new ArrayList<>();
 
