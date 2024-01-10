@@ -8,6 +8,7 @@ import com.example.unstructureddatabasecomparator.model.postgresql.Rating;
 import com.example.unstructureddatabasecomparator.repository.postgresql.*;
 import com.example.unstructureddatabasecomparator.util.CSVReaderPostgres;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class PostgresService {
   private MovieMetadataPostgresRepository movieMetadataPostgresRepository;
   private CreditsPostgresRepository creditsPostgresRepository;
 
+  @Async
   public void loadDataset() {
 
     ArrayList<Link> links = CSVReaderPostgres.loadLinks();

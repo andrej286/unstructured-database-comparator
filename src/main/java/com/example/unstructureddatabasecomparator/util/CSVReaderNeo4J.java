@@ -89,15 +89,21 @@ public class CSVReaderNeo4J {
         return links;
     }
 
-    public static ArrayList<MovieKeywords> loadKeywords() {
+    public static ArrayList<MovieKeywords> loadKeywords(int maxRows) {
         String csvFile = getFilePath("keywords.csv");
         ArrayList<MovieKeywords> movieKeywords = new ArrayList<>();
+
+        int count = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
+
+                    count++;
+                    if (count > maxRows) break;
+
                     String id = record[0];
                     String keywords = record[1];
 
