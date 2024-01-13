@@ -20,7 +20,7 @@ public class MovieMetadata {
     private String id;
     public String adult;
     @Relationship(type = "BELONGS_TO_COLLECTION", direction = Relationship.Direction.INCOMING)
-    public BelongsToCollection Belongs_To_Collection;
+    public BelongsToCollection belongs_to_collection;
     public int budget;
     @Relationship(type = "HAS_GENRE", direction = Relationship.Direction.OUTGOING)
     public List<Genre> genres;
