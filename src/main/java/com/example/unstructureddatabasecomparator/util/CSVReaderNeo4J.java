@@ -178,7 +178,7 @@ public class CSVReaderNeo4J {
                     movieMetadataObject.setGenres(genresObject);
                     movieMetadataObject.setHomepage(homepage);
                     movieMetadataObject.setImdb_id(Integer.parseInt(imdbId.substring(2)));
-                    movieMetadataObject.setBelongs_To_Collection(belongsToCollectionObject);
+                    movieMetadataObject.setBelongs_to_collection(belongsToCollectionObject);
                     movieMetadataObject.setProduction_companies(productionCompaniesObject);
                     movieMetadataObject.setProduction_countries(productionCountriesObject);
                     movieMetadataObject.setSpoken_languages(spokenLanguagesObject);
