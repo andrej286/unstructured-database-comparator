@@ -10,6 +10,8 @@ import java.util.Base64;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static com.example.unstructureddatabasecomparator.util.DeleteBackslashes.deleteBackslashes;
+
 //@Service
 public class Kaggle {
     public static void downloadDataset() {
@@ -31,6 +33,7 @@ public class Kaggle {
         } else System.out.println("Files already downloaded. Skipping...");
 
         fixFiles();
+        deleteBackslashes();
     }
 
     private static void fixFiles() {
