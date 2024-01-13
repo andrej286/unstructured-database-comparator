@@ -29,14 +29,17 @@ import java.util.regex.Pattern;
 
 public class CSVReaderPostgres {
     public static ArrayList<Rating> loadRatings() {
-        String csvFile = getFilePath("ratings.csv");
+        String csvFile = getFilePath("ratings_small.csv");
         String line;
         ArrayList<Rating> ratings = new ArrayList<>();
+        int counter = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
+                counter++;
+
                 String[] data = line.split(",");
 
                 String userId = data[0];
@@ -60,7 +63,7 @@ public class CSVReaderPostgres {
     }
 
     public static ArrayList<Link> loadLinks() {
-        String csvFile = getFilePath("links.csv");
+        String csvFile = getFilePath("links_small.csv");
         String line;
         ArrayList<Link> links = new ArrayList<>();
 
@@ -72,7 +75,9 @@ public class CSVReaderPostgres {
 
                 String movieId = data[0];
                 String imdbId = data[1];
-                String tmdbId = data[2];
+                String tmdbId = null;
+                if(data.length == 3)
+                    tmdbId = data[2];
 
                 Link link = new Link();
                 link.movieId = movieId;
@@ -82,7 +87,8 @@ public class CSVReaderPostgres {
                 links.add(link);
             }
         } catch (IOException | ArrayIndexOutOfBoundsException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            System.out.println(e);
         }
 
         return links;
@@ -97,6 +103,7 @@ public class CSVReaderPostgres {
 
             for (String[] record : records) {
                 try {
+
                     String id = record[0];
                     String keywords = record[1];
 
@@ -105,8 +112,8 @@ public class CSVReaderPostgres {
                     List<Keyword> allKeywords = objectMapper.readValue(convertSingleQuotes(keywords), new TypeReference<>() {
                     });
                     MovieKeywords movieKeywordsObject = new MovieKeywords();
-                    movieKeywordsObject.setId(id);
-                    movieKeywordsObject.setKeywords(allKeywords);
+                    movieKeywordsObject.id = id;
+                    movieKeywordsObject.keywords = allKeywords;
 
                     movieKeywords.add(movieKeywordsObject);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -132,6 +139,7 @@ public class CSVReaderPostgres {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
                 try {
+
                     String adult = record[0];
                     String belongsToCollection = record[1];
                     String budget = record[2];
@@ -171,7 +179,7 @@ public class CSVReaderPostgres {
                     movieMetadataObject.setGenres(genresObject);
                     movieMetadataObject.setHomepage(homepage);
                     movieMetadataObject.setImdb_id(Integer.parseInt(imdbId.substring(2)));
-                    movieMetadataObject.setBelongs_To_Collection(belongsToCollectionObject);
+                    movieMetadataObject.setBelongsToCollection(belongsToCollectionObject);
                     movieMetadataObject.setProduction_companies(productionCompaniesObject);
                     movieMetadataObject.setProduction_countries(productionCountriesObject);
                     movieMetadataObject.setSpoken_languages(spokenLanguagesObject);
@@ -215,7 +223,6 @@ public class CSVReaderPostgres {
 
             for (String[] record : records) {
                 try {
-
                     String cast = record[0];
                     String crew = record[1];
                     String id = record[2];

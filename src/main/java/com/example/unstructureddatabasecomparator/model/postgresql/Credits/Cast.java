@@ -1,9 +1,6 @@
 package com.example.unstructureddatabasecomparator.model.postgresql.Credits;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,9 @@ public class Cast {
     @Id
     public String cast_id;
     public String character;
-    public String credit_id; //foreign key for Credit
+    @ManyToOne
+    @JoinColumn(name = "credit_id")
+    private Credits credit;
     public String gender;
     public String id;
     public String name;

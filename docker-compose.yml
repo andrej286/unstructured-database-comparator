@@ -13,3 +13,4 @@ services:
       - ./db/conf:/conf
       - ./db/logs:/logs
       - ./db/plugins:/plugins
+      - ./dataset:/import
