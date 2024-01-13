@@ -3,6 +3,7 @@ package com.example.unstructureddatabasecomparator.controller;
 import com.example.unstructureddatabasecomparator.service.neo4j.Neo4JService;
 import com.example.unstructureddatabasecomparator.service.postgresql.PostgresService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping(value = {"/", "/home"})
 @RequiredArgsConstructor
 @SessionAttributes("data")
+@EnableAsync
 public class HomeController {
 
   private final Neo4JService neo4JService;
@@ -46,6 +48,7 @@ public class HomeController {
   public String loadDataset(Model model) {
 
     postgresService.loadDataset();
+    neo4JService.loadDataset();
 
     return "home";
   }

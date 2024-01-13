@@ -7,8 +7,8 @@ import com.example.unstructureddatabasecomparator.model.postgresql.MovieMetaData
 import com.example.unstructureddatabasecomparator.model.postgresql.Rating;
 import com.example.unstructureddatabasecomparator.repository.postgresql.*;
 import com.example.unstructureddatabasecomparator.util.CSVReaderPostgres;
-import com.example.unstructureddatabasecomparator.util.Kaggle;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,26 +23,28 @@ public class PostgresService {
   private MovieMetadataPostgresRepository movieMetadataPostgresRepository;
   private CreditsPostgresRepository creditsPostgresRepository;
 
-  private static int MAX_ROWS = 10000;
-
+  @Async
   public void loadDataset() {
 
-    Kaggle.downloadDataset();
+    ArrayList<Link> links = CSVReaderPostgres.loadLinks();
+    linkPostgresRepository.saveAll(links);
+    links.clear();
 
-    ArrayList<Rating> postgresRatings = CSVReaderPostgres.loadRatings(MAX_ROWS);
-    ratingPostgresRepository.saveAll(postgresRatings);
+    ArrayList<Rating> ratings = CSVReaderPostgres.loadRatings();
+    ratingPostgresRepository.saveAll(ratings);
+    ratings.clear();
 
-    ArrayList<Link> postgresLinks = CSVReaderPostgres.loadLinks(MAX_ROWS);
-    linkPostgresRepository.saveAll(postgresLinks);
+    ArrayList<Credits> credits = CSVReaderPostgres.loadCredits();
+    creditsPostgresRepository.saveAll(credits);
+    credits.clear();
 
-    ArrayList<MovieKeywords> postgresKeywords = CSVReaderPostgres.loadKeywords(MAX_ROWS);
-    movieKeywordsPostgresRepository.saveAll(postgresKeywords);
+    ArrayList<MovieMetadata> movieMetadata = CSVReaderPostgres.loadMovies();
+    movieMetadataPostgresRepository.saveAll(movieMetadata);
+    movieMetadata.clear();
 
-    ArrayList<MovieMetadata> postgresMovieMetadata = CSVReaderPostgres.loadMovies(MAX_ROWS);
-    movieMetadataPostgresRepository.saveAll(postgresMovieMetadata);
-
-    ArrayList<Credits> postgresCredits = CSVReaderPostgres.loadCredits(MAX_ROWS);
-    creditsPostgresRepository.saveAll(postgresCredits);
+    ArrayList<MovieKeywords> movieKeywords = CSVReaderPostgres.loadKeywords();
+    movieKeywordsPostgresRepository.saveAll(movieKeywords);
+    movieKeywords.clear();
   }
 
   public Double executeFistQuery() {

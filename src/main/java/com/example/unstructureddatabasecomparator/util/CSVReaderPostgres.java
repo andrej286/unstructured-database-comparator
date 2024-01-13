@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CSVReaderPostgres {
-    public static ArrayList<Rating> loadRatings(int maxRows) {
+    public static ArrayList<Rating> loadRatings() {
         String csvFile = getFilePath("ratings_small.csv");
         String line;
         ArrayList<Rating> ratings = new ArrayList<>();
@@ -62,17 +62,15 @@ public class CSVReaderPostgres {
         return ratings;
     }
 
-    public static ArrayList<Link> loadLinks(int maxRows) {
-        String csvFile = getFilePath("links.csv");
+    public static ArrayList<Link> loadLinks() {
+        String csvFile = getFilePath("links_small.csv");
         String line;
         ArrayList<Link> links = new ArrayList<>();
-        int counter = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
-                counter++;
                 String[] data = line.split(",");
 
                 String movieId = data[0];
@@ -96,18 +94,15 @@ public class CSVReaderPostgres {
         return links;
     }
 
-    public static ArrayList<MovieKeywords> loadKeywords(int maxRows) {
+    public static ArrayList<MovieKeywords> loadKeywords() {
         String csvFile = getFilePath("keywords.csv");
         ArrayList<MovieKeywords> movieKeywords = new ArrayList<>();
-        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
-                    counter++;
-                    if(counter >= maxRows) break;
 
                     String id = record[0];
                     String keywords = record[1];
@@ -117,8 +112,8 @@ public class CSVReaderPostgres {
                     List<Keyword> allKeywords = objectMapper.readValue(convertSingleQuotes(keywords), new TypeReference<>() {
                     });
                     MovieKeywords movieKeywordsObject = new MovieKeywords();
-                    movieKeywordsObject.setId(id);
-                    movieKeywordsObject.setKeywords(allKeywords);
+                    movieKeywordsObject.id = id;
+                    movieKeywordsObject.keywords = allKeywords;
 
                     movieKeywords.add(movieKeywordsObject);
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -136,17 +131,14 @@ public class CSVReaderPostgres {
         return movieKeywords;
     }
 
-    public static ArrayList<MovieMetadata> loadMovies(int maxRows) {
+    public static ArrayList<MovieMetadata> loadMovies() {
         String csvFile = getFilePath("movies_metadata.csv");
         ArrayList<MovieMetadata> movieMetadata = new ArrayList<>();
-        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
             for (String[] record : records) {
                 try {
-                    counter++;
-                    if(counter >= maxRows) break;
 
                     String adult = record[0];
                     String belongsToCollection = record[1];
@@ -187,7 +179,7 @@ public class CSVReaderPostgres {
                     movieMetadataObject.setGenres(genresObject);
                     movieMetadataObject.setHomepage(homepage);
                     movieMetadataObject.setImdb_id(Integer.parseInt(imdbId.substring(2)));
-                    movieMetadataObject.setBelongs_To_Collection(belongsToCollectionObject);
+                    movieMetadataObject.setBelongsToCollection(belongsToCollectionObject);
                     movieMetadataObject.setProduction_companies(productionCompaniesObject);
                     movieMetadataObject.setProduction_countries(productionCountriesObject);
                     movieMetadataObject.setSpoken_languages(spokenLanguagesObject);
@@ -222,19 +214,15 @@ public class CSVReaderPostgres {
         return movieMetadata;
     }
 
-    public static ArrayList<Credits> loadCredits(int maxRows) {
+    public static ArrayList<Credits> loadCredits() {
         String csvFile = getFilePath("credits.csv");
         ArrayList<Credits> credits = new ArrayList<>();
-        int counter = 0;
 
         try (com.opencsv.CSVReader csvReader = new CSVReaderBuilder(new FileReader(csvFile)).withSkipLines(1).build()) {
             List<String[]> records = csvReader.readAll();
 
             for (String[] record : records) {
                 try {
-                    counter++;
-                    if(counter >= maxRows) break;
-
                     String cast = record[0];
                     String crew = record[1];
                     String id = record[2];
