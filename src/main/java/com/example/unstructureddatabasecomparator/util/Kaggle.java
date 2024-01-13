@@ -51,7 +51,7 @@ public class Kaggle {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    String modifiedLine = line.replace("None", "null");
+                    String modifiedLine = line.replace("None", "null").replace(",,", ",null,");
                     writer.write(modifiedLine);
                     writer.newLine();
                 }
