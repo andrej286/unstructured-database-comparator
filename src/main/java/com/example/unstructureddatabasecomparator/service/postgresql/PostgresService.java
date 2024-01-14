@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -48,7 +49,15 @@ public class PostgresService {
   }
 
   public Double executeFistQuery() {
-    return 1.0;
+
+    long startTime = System.currentTimeMillis();
+
+    List<MovieMetadata> movieMetadata = movieMetadataPostgresRepository.findAll();
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    return (double) executionTime / 1000;
   }
 
   public Double executeSecondQuery() {

@@ -15,6 +15,6 @@ public class MovieKeywords{
     @Id
     public String id;
 
-    @OneToMany(mappedBy = "movieKeywords", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movieKeywords", cascade = CascadeType.ALL)
     public List<Keyword> keywords;
 }
