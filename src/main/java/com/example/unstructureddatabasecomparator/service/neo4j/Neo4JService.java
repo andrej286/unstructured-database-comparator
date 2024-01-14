@@ -1,6 +1,5 @@
 package com.example.unstructureddatabasecomparator.service.neo4j;
 
-import com.example.unstructureddatabasecomparator.model.neo4j.MovieMetaData.MovieMetadata;
 import com.example.unstructureddatabasecomparator.repository.neo4j.MovieKeywordsNeo4JRepository;
 import com.example.unstructureddatabasecomparator.repository.neo4j.Neo4JMovieMetadataRepository;
 import lombok.AllArgsConstructor;
@@ -22,12 +21,16 @@ public class Neo4JService {
 
   public Double executeFistQuery() {
 
+    String keyword = "pirate";
+
     long startTime = System.currentTimeMillis();
 
-    List<MovieMetadata> movieMetadata = movieMetadataRepository.getAllMovieMetadata();
+    List<String> movieNames = movieMetadataRepository.getMovieNamesContainingKeyword(keyword);
 
     long endTime = System.currentTimeMillis();
     long executionTime = endTime - startTime;
+
+    movieNames.clear();
 
     return (double) executionTime / 1000;
   }

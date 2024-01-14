@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface Neo4JMovieMetadataRepository extends Neo4jRepository<MovieMetadata, String> {
 
-
-  @Query("MATCH (n:MovieMetadata) RETURN n")
-  List<MovieMetadata> getAllMovieMetadata();
+  @Query("MATCH (n:MovieMetadata) WHERE toLower(n.title) CONTAINS $keyword RETURN n.title")
+  List<String> getMovieNamesContainingKeyword(String keyword);
 }

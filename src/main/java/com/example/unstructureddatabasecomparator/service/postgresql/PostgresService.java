@@ -50,12 +50,16 @@ public class PostgresService {
 
   public Double executeFistQuery() {
 
+    String keyword = "pirate";
+
     long startTime = System.currentTimeMillis();
 
-    List<MovieMetadata> movieMetadata = movieMetadataPostgresRepository.findAll();
+    List<String> movieNames = movieMetadataPostgresRepository.getMovieNamesContainingKeyword(keyword);
 
     long endTime = System.currentTimeMillis();
     long executionTime = endTime - startTime;
+
+    movieNames.clear();
 
     return (double) executionTime / 1000;
   }
