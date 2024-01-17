@@ -18,5 +18,5 @@ public class SpokenLanguages {
     public String name;
 
     @ManyToOne
-    private MovieMetadata movieMetadata;
+    public MovieMetadata movieMetadata;
 }

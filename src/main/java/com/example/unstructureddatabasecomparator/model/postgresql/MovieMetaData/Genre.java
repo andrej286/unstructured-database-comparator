@@ -16,5 +16,5 @@ public class Genre {
   public String name;
 
   @ManyToOne
-  private MovieMetadata movieMetadata;
+  public MovieMetadata movieMetadata;
 }

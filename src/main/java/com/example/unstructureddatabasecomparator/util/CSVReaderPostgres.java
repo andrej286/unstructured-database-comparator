@@ -113,6 +113,7 @@ public class CSVReaderPostgres {
                     });
                     MovieKeywords movieKeywordsObject = new MovieKeywords();
                     movieKeywordsObject.id = id;
+                    allKeywords.forEach(keyword -> keyword.setMovieKeywords(movieKeywordsObject));
                     movieKeywordsObject.keywords = allKeywords;
 
                     movieKeywords.add(movieKeywordsObject);
@@ -176,12 +177,16 @@ public class CSVReaderPostgres {
                     movieMetadataObject.setId(Integer.parseInt(id));
                     movieMetadataObject.setAdult(adult);
                     movieMetadataObject.setBudget(Integer.parseInt(budget));
+                    genresObject.forEach(genre -> genre.setMovieMetadata(movieMetadataObject));
                     movieMetadataObject.setGenres(genresObject);
                     movieMetadataObject.setHomepage(homepage);
                     movieMetadataObject.setImdb_id(Integer.parseInt(imdbId.substring(2)));
                     movieMetadataObject.setBelongsToCollection(belongsToCollectionObject);
+                    productionCompaniesObject.forEach(productionCompany -> productionCompany.setMovieMetadata(movieMetadataObject));
                     movieMetadataObject.setProduction_companies(productionCompaniesObject);
+                    productionCountriesObject.forEach(productionCountry -> productionCountry.setMovieMetadata(movieMetadataObject));
                     movieMetadataObject.setProduction_countries(productionCountriesObject);
+                    spokenLanguagesObject.forEach(spokenLanguage -> spokenLanguage.setMovieMetadata(movieMetadataObject));
                     movieMetadataObject.setSpoken_languages(spokenLanguagesObject);
                     movieMetadataObject.setOverview(overview);
                     movieMetadataObject.setPopularity(Double.parseDouble(popularity));
@@ -236,7 +241,9 @@ public class CSVReaderPostgres {
 
                     Credits creditsObject = new Credits();
                     creditsObject.id = id;
+                    crewObject.forEach(crewItem -> crewItem.setCredit(creditsObject));
                     creditsObject.crewList = crewObject;
+                    castObject.forEach(castItem -> castItem.setCredit(creditsObject));
                     creditsObject.castList = castObject;
 
                     credits.add(creditsObject);

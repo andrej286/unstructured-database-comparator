@@ -15,6 +15,14 @@ public class MovieKeywords{
     @Id
     public String id;
 
-    @OneToMany(mappedBy = "movieKeywords", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movieKeywords", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Keyword> keywords;
+
+    @Override
+    public String toString() {
+        return "MovieKeywords{" +
+                "id='" + id + '\'' +
+                ", keywords=" + (keywords == null ? "null" : keywords.size()) +
+                '}';
+    }
 }

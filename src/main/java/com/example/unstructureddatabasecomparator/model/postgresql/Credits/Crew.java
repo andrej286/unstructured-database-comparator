@@ -17,7 +17,7 @@ public class Crew {
     public String id;
     @ManyToOne
     @JoinColumn(name = "credit_id")
-    private Credits credit;
+    public Credits credit;
     public String department;
     public String gender;
     public String job;

@@ -16,7 +16,7 @@ public class Cast {
     public String character;
     @ManyToOne
     @JoinColumn(name = "credit_id")
-    private Credits credit;
+    public Credits credit;
     public String gender;
     public String id;
     public String name;

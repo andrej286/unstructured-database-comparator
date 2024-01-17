@@ -19,6 +19,6 @@ public class ProductionCompanies {
     public String name;
 
     @ManyToOne
-    private MovieMetadata movieMetadata;
+    public MovieMetadata movieMetadata;
 }
 

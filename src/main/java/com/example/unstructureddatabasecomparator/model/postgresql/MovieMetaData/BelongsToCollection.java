@@ -24,6 +24,6 @@ public class BelongsToCollection {
   @JsonAlias({"backdrop_path"})
   public String backdropPath;
 
-  @OneToMany(mappedBy = "belongsToCollection", fetch = FetchType.EAGER)
-  private List<MovieMetadata> movieMetadata;
+  @OneToMany(mappedBy = "belongsToCollection", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  public List<MovieMetadata> movieMetadata;
 }

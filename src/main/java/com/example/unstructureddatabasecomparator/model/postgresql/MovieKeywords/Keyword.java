@@ -21,5 +21,18 @@ public class Keyword {
 
     @ManyToOne
     @JoinColumn(name = "movie_keywords_id")
-    private MovieKeywords movieKeywords;
+    public MovieKeywords movieKeywords;
+
+    public void setMovieKeywords(MovieKeywords movieKeywords) {
+        this.movieKeywords = movieKeywords;
+    }
+
+    @Override
+    public String toString() {
+        return "Keyword{" +
+                "id='" + id + '\'' +
+                ", names='" + names + '\'' +
+                ", movieKeywords.id=" + (movieKeywords == null ? "null" : movieKeywords.getId()) +
+                '}';
+    }
 }
