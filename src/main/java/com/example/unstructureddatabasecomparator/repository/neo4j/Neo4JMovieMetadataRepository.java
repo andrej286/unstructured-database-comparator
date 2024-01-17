@@ -10,4 +10,9 @@ public interface Neo4JMovieMetadataRepository extends Neo4jRepository<MovieMetad
 
   @Query("MATCH (n:MovieMetadata) WHERE toLower(n.title) CONTAINS $keyword RETURN n.title")
   List<String> getMovieNamesContainingKeyword(String keyword);
+
+  @Query("MATCH (m:MovieMetadata)-[:HAS_PRODUCTION_COMPANY]->(pc:ProductionCompanies) " +
+          "WHERE toLower(m.title) CONTAINS toLower($keyword) " +
+          "RETURN DISTINCT pc.name")
+  List<String> getProductionCompaniesByMovieTitleContainingKeyword( String keyword);
 }

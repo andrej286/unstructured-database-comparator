@@ -19,6 +19,11 @@ public class Neo4JService {
   public void loadDataset() {
   }
 
+  /**
+   * Sends a query to get all the names of the movies containing a given word.
+   *
+   * @return the time it took to execute the query.
+   */
   public Double executeFistQuery() {
 
     String keyword = "pirate";
@@ -35,14 +40,42 @@ public class Neo4JService {
     return (double) executionTime / 1000;
   }
 
+  /**
+   * Sends a query to get all the production company names that have made
+   * a movie with a title of a given word
+   *
+   * @return the time it took to execute the query.
+   */
   public Double executeSecondQuery() {
-    return 3.0;
+
+    String keyword = "batman";
+
+    long startTime = System.currentTimeMillis();
+
+    List<String> productionCompanyNames = movieMetadataRepository.getProductionCompaniesByMovieTitleContainingKeyword(keyword);
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    productionCompanyNames.clear();
+
+    return (double) executionTime / 1000;
   }
 
+  /**
+   * Sends a query to get the average of all the ratings for a certain movie
+   *
+   * @return the time it took to execute the query.
+   */
   public Double executeThirdQuery() {
     return 2.0;
   }
 
+  /**
+   * Sends a query to get the cast of the movie with the biggest rating.
+   *
+   * @return the time it took to execute the query.
+   */
   public Double executeFourthQuery() {
     return 1.0;
   }

@@ -13,4 +13,9 @@ public interface MovieMetadataPostgresRepository extends JpaRepository<MovieMeta
 
   @Query("SELECT m.title FROM MovieMetadata m WHERE LOWER(m.title) LIKE %:keyword%")
   List<String> getMovieNamesContainingKeyword(@Param("keyword") String keyword);
+
+  @Query("SELECT DISTINCT pc.name FROM ProductionCompanies pc " +
+          "JOIN pc.movieMetadata m " +
+          "WHERE LOWER(m.title) LIKE %:keyword%")
+  List<String> getProductionCompaniesByMovieTitleContainingKeyword(@Param("keyword") String keyword);
 }
