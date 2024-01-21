@@ -37,7 +37,7 @@ public class Neo4JService {
 
     movieNames.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -59,7 +59,7 @@ public class Neo4JService {
 
     productionCompanyNames.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -77,7 +77,7 @@ public class Neo4JService {
     long endTime = System.currentTimeMillis();
     long executionTime = endTime - startTime;
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -96,6 +96,6 @@ public class Neo4JService {
 
     keywords.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 }

@@ -52,7 +52,7 @@
 
     <tr th:each="row, rowAttr : ${data}" id="row[[${rowStat.index}]]">
         <td th:each="column, columnAttr : ${row}">
-            <div th:if="${columnAttr.index != 0}" th:text="${column != null} ? ${column} : 'NAN'"></div>
+            <div th:if="${columnAttr.index != 0}" th:text="${column != null} ? ${column} + ' ms' : 'NAN'"></div>
             <a
                 th:if="${columnAttr.index == 0}"
                 th:href="@{'/executeQueries?row=' + ${rowAttr.index}}"

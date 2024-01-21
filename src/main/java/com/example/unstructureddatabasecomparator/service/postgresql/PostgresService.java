@@ -66,7 +66,7 @@ public class PostgresService {
 
     movieNames.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -88,7 +88,7 @@ public class PostgresService {
 
     productionCompanyNames.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -107,7 +107,7 @@ public class PostgresService {
     long endTime = System.currentTimeMillis();
     long executionTime = endTime - startTime;
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 
   /**
@@ -126,6 +126,6 @@ public class PostgresService {
 
     keywords.clear();
 
-    return (double) executionTime / 1000;
+    return (double) executionTime;
   }
 }

@@ -30,7 +30,7 @@ public class HomeController {
     for (int i = 0; i < 4; i++) {
 
       List<Object> row = new ArrayList<>();
-      row.add("Execute Query Level " + i);
+      row.add("Execute Query Level " + (i+1));
       row.add(null);
       row.add(null);
       row.add(null);
