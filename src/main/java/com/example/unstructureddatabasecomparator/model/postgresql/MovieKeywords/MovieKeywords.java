@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 public class MovieKeywords{
     @Id
-    public String id;
+    public String id;//this is the same id as MovieMetadata id parameter
 
     @OneToMany(mappedBy = "movieKeywords", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Keyword> keywords;

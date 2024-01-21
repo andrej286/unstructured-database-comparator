@@ -92,20 +92,40 @@ public class PostgresService {
   }
 
   /**
-   * Sends a query to get the average of all the ratings for a certain movie
+   * Sends a query to get the average of all the ratings for a certain movie name
    *
    * @return the time it took to execute the query.
    */
   public Double executeThirdQuery() {
-    return 3.0;
+
+    String keyword = "batman";
+
+    long startTime = System.currentTimeMillis();
+
+    Double rating = movieMetadataPostgresRepository.getAverageRatingForAllTheMoviesWithTitleContainingKeyword(keyword);
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    return (double) executionTime / 1000;
   }
 
   /**
-   * Sends a query to get the cast of the movie with the biggest rating.
+   * Sends a query to get the keywords of the top 10 movies with the highest rating.
    *
    * @return the time it took to execute the query.
    */
   public Double executeFourthQuery() {
-    return 4.0;
+
+    long startTime = System.currentTimeMillis();
+
+    List<String> keywords = movieMetadataPostgresRepository.getKeywordsForMovieWithTop10HighestAverageRating();
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    keywords.clear();
+
+    return (double) executionTime / 1000;
   }
 }

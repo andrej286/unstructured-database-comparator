@@ -14,5 +14,11 @@ public interface Neo4JMovieMetadataRepository extends Neo4jRepository<MovieMetad
   @Query("MATCH (m:MovieMetadata)-[:HAS_PRODUCTION_COMPANY]->(pc:ProductionCompanies) " +
           "WHERE toLower(m.title) CONTAINS toLower($keyword) " +
           "RETURN DISTINCT pc.name")
-  List<String> getProductionCompaniesByMovieTitleContainingKeyword( String keyword);
+  List<String> getProductionCompaniesByMovieTitleContainingKeyword(String keyword);
+
+  // TODO: 1/19/2024: This does not work yet, we need the HAS_RATING relationship.
+  @Query("MATCH (m:MovieMetadata)-[:HAS_RATING]->(r:Rating) " +
+          "WHERE toLower(m.title) CONTAINS toLower($keyword) " +
+          "RETURN AVG(toFloat(r.rating)) AS averageRating")
+  Double getAverageRatingForAllTheMoviesWithTitleContainingKeyword(String keyword);
 }

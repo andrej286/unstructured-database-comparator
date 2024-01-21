@@ -63,16 +63,25 @@ public class Neo4JService {
   }
 
   /**
-   * Sends a query to get the average of all the ratings for a certain movie
+   * Sends a query to get the average of all the ratings for a certain movie name
    *
    * @return the time it took to execute the query.
    */
   public Double executeThirdQuery() {
-    return 2.0;
+    String keyword = "batman";
+
+    long startTime = System.currentTimeMillis();
+
+//    Double rating = movieMetadataRepository.getAverageRatingForAllTheMoviesWithTitleContainingKeyword(keyword);
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    return (double) executionTime / 1000;
   }
 
   /**
-   * Sends a query to get the cast of the movie with the biggest rating.
+   * Sends a query to get the keywords of the top 10 movies with the highest rating.
    *
    * @return the time it took to execute the query.
    */
