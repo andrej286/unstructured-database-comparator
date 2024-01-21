@@ -72,7 +72,7 @@ public class Neo4JService {
 
     long startTime = System.currentTimeMillis();
 
-//    Double rating = movieMetadataRepository.getAverageRatingForAllTheMoviesWithTitleContainingKeyword(keyword);
+    Double rating = movieMetadataRepository.getAverageRatingForAllTheMoviesWithTitleContainingKeyword(keyword);
 
     long endTime = System.currentTimeMillis();
     long executionTime = endTime - startTime;
@@ -86,6 +86,16 @@ public class Neo4JService {
    * @return the time it took to execute the query.
    */
   public Double executeFourthQuery() {
-    return 1.0;
+
+    long startTime = System.currentTimeMillis();
+
+    List<String> keywords = movieMetadataRepository.getKeywordsForTop10MoviesWithHighestAverageRatings();
+
+    long endTime = System.currentTimeMillis();
+    long executionTime = endTime - startTime;
+
+    keywords.clear();
+
+    return (double) executionTime / 1000;
   }
 }
